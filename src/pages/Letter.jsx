@@ -286,29 +286,33 @@ export default function Letter() {
                 }}
                 className="relative overflow-hidden rounded-sm border p-8 md:p-12"
                 style={{
-                  background: "#fefdfb",
+                  background: "#faf5ed",
                   borderColor: "rgba(0, 0, 0, 0.06)",
                   boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04), inset 0 0 2px rgba(0,0,0,0.02), 0 4px 12px rgba(80,60,40,0.12), 0 12px 32px rgba(60,40,20,0.08)",
                   transformOrigin: "top center",
                   backfaceVisibility: "hidden",
                 }}
               >
-                {/* Paper fiber texture */}
-                <div className="pointer-events-none absolute inset-0" style={{ opacity: 0.8 }}>
+                {/* Paper texture layers */}
+                <div className="pointer-events-none absolute inset-0">
+                  {/* Ruled lines */}
                   <div className="absolute inset-0" style={{
-                    backgroundImage: `
-                      radial-gradient(circle at 15% 25%, rgba(0,0,0,0.025) 1px, transparent 1px),
-                      radial-gradient(circle at 72% 58%, rgba(0,0,0,0.018) 0.7px, transparent 0.7px),
-                      radial-gradient(circle at 38% 82%, rgba(0,0,0,0.022) 1px, transparent 1px),
-                      radial-gradient(circle at 88% 12%, rgba(0,0,0,0.015) 0.5px, transparent 0.5px),
-                      radial-gradient(circle at 55% 45%, rgba(0,0,0,0.02) 0.8px, transparent 0.8px),
-                      radial-gradient(circle at 25% 70%, rgba(0,0,0,0.018) 0.6px, transparent 0.6px),
-                      radial-gradient(circle at 62% 20%, rgba(0,0,0,0.022) 1px, transparent 1px),
-                      radial-gradient(circle at 80% 75%, rgba(0,0,0,0.016) 0.7px, transparent 0.7px),
-                      radial-gradient(circle at 10% 55%, rgba(0,0,0,0.02) 0.8px, transparent 0.8px),
-                      radial-gradient(circle at 45% 10%, rgba(0,0,0,0.018) 0.6px, transparent 0.6px)
-                    `,
-                    backgroundSize: "180px 180px, 150px 150px, 200px 200px, 160px 160px, 170px 170px, 190px 190px, 140px 140px, 175px 175px, 155px 155px, 185px 185px",
+                    backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(244,114,182,0.06) 31px, rgba(244,114,182,0.06) 32px)",
+                    backgroundSize: "100% 32px",
+                  }} />
+                  {/* Paper grain noise */}
+                  <div className="absolute inset-0" style={{
+                    opacity: 0.4,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
+                    backgroundSize: "200px 200px",
+                  }} />
+                  {/* Warm edge vignette */}
+                  <div className="absolute inset-0" style={{
+                    background: "radial-gradient(ellipse at center, transparent 50%, rgba(180,140,100,0.08) 100%)",
+                  }} />
+                  {/* Pink tint overlay */}
+                  <div className="absolute inset-0" style={{
+                    background: "rgba(251,207,232,0.04)",
                   }} />
                 </div>
 

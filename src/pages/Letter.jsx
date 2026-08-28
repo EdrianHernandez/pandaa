@@ -311,26 +311,6 @@ export default function Letter() {
                   }} />
                 </div>
 
-                {/* Title */}
-                <div className="mb-2 flex items-center gap-4">
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent to-rose-500/30" />
-                  <h1
-                    className="shrink-0 text-3xl font-bold tracking-tight gradient-pink-text"
-                    style={{ textShadow: "0 0 30px rgba(236, 72, 153, 0.25)" }}
-                  >
-                    For You, Mahal
-                  </h1>
-                  <div className="h-px flex-1 bg-gradient-to-l from-transparent to-rose-500/30" />
-                </div>
-
-                {/* Subtitle */}
-                <p className="mb-10 text-center text-sm text-stone-500">
-                  A letter that longs to be read
-                </p>
-
-                {/* Divider */}
-                <div className="letter-divider mx-auto mb-10 w-1/2" />
-
                 {/* Salutation */}
                 <p className="mb-6 font-serif italic text-[15px] text-rose-500">
                   Dear Mahal,

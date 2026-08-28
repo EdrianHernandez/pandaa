@@ -351,7 +351,7 @@ export default function Letter() {
                     With all my love,
                   </p>
                   <p className="gradient-pink-text mt-2 text-lg font-semibold">
-                    Yours
+                    Ed
                   </p>
                 </motion.div>
               </motion.div>

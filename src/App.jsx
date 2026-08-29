@@ -27,7 +27,7 @@ export default function App() {
   const progress = (currentStep / TOTAL_STEPS) * 100;
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 text-neutral-100">
+    <div className="relative min-h-screen overflow-x-hidden bg-neutral-950 text-neutral-100">
       <FloatingParticles />
 
       {/* Progress bar */}

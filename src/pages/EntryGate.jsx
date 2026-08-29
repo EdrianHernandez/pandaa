@@ -1,9 +1,66 @@
 ﻿import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 
 const PASSCODE = "100904";
 const LENGTH = 6;
+
+function FloatingHeart({ delay, x, size }) {
+  return (
+    <motion.div
+      className="pointer-events-none absolute"
+      initial={{ opacity: 0, y: 20, x, scale: 0.5 }}
+      animate={{
+        opacity: [0, 0.6, 0.6, 0],
+        y: [20, -120, -260, -400],
+        x: [x, x + 15, x - 10, x + 5],
+        scale: [0.5, 1, 0.9, 0.6],
+      }}
+      transition={{
+        duration: 6,
+        delay,
+        repeat: Infinity,
+        ease: "easeOut",
+      }}
+    >
+      <Heart
+        className="text-rose-400/40"
+        fill="currentColor"
+        style={{ width: size, height: size }}
+      />
+    </motion.div>
+  );
+}
+
+const hearts = [
+  { delay: 0, x: -80, size: 14 },
+  { delay: 1.5, x: 60, size: 10 },
+  { delay: 3, x: -30, size: 16 },
+  { delay: 0.8, x: 90, size: 12 },
+  { delay: 2.2, x: -60, size: 11 },
+];
+
+function SuccessBurst() {
+  return (
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: [1, 1, 0],
+            scale: [0, 1.2, 0.8],
+            x: Math.cos((i * 72 * Math.PI) / 180) * 60,
+            y: Math.sin((i * 72 * Math.PI) / 180) * 60 - 20,
+          }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Heart className="h-4 w-4 text-rose-400" fill="currentColor" />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
 export default function EntryGate({ onNext }) {
   const [digits, setDigits] = useState(Array(LENGTH).fill(""));
@@ -46,7 +103,7 @@ export default function EntryGate({ onNext }) {
       const code = digits.join("");
       if (code === PASSCODE) {
         setSuccess(true);
-        setTimeout(() => onNext(), 600);
+        setTimeout(() => onNext(), 1000);
       } else {
         setError(true);
         setTimeout(() => {
@@ -65,11 +122,18 @@ export default function EntryGate({ onNext }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(244,63,94,0.12) 0%, rgba(217,70,239,0.06) 30%, rgba(10,10,11,1) 70%)",
+            "radial-gradient(ellipse at center, rgba(244,63,94,0.15) 0%, rgba(217,70,239,0.08) 30%, rgba(10,10,11,1) 70%)",
         }}
       />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute bottom-1/4 left-1/3 h-[300px] w-[300px] rounded-full bg-fuchsia-500/5 blur-[100px]" />
+      </div>
+
+      {/* Floating hearts */}
+      <div className="pointer-events-none absolute inset-0">
+        {hearts.map((h, i) => (
+          <FloatingHeart key={i} {...h} />
+        ))}
       </div>
 
       <motion.div
@@ -79,7 +143,10 @@ export default function EntryGate({ onNext }) {
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <motion.div
-          className="rounded-2xl border border-zinc-800/60 bg-zinc-900/60 p-8 shadow-2xl backdrop-blur-xl"
+          className="relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-zinc-900/50 p-8 shadow-2xl backdrop-blur-xl"
+          style={{
+            boxShadow: "0 0 40px rgba(236,72,153,0.08), 0 25px 50px rgba(0,0,0,0.4)",
+          }}
           animate={
             error
               ? { x: [0, -8, 8, -6, 6, -3, 3, 0] }
@@ -87,18 +154,36 @@ export default function EntryGate({ onNext }) {
           }
           transition={{ duration: 0.5 }}
         >
+          <AnimatePresence>
+            {success && <SuccessBurst />}
+          </AnimatePresence>
+
+          {/* Icon */}
+          <div className="mb-5 flex justify-center">
+            <motion.div
+              className="flex h-14 w-14 items-center justify-center rounded-2xl"
+              style={{
+                background: "linear-gradient(135deg, rgba(244,63,94,0.15), rgba(217,70,239,0.15))",
+              }}
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Heart className="h-6 w-6 text-rose-400" fill="currentColor" />
+            </motion.div>
+          </div>
+
           {/* Header */}
-          <h1 className="mb-2 text-center text-xl font-semibold tracking-tight text-zinc-100">
-            Welcome back
+          <h1 className="mb-2 text-center text-2xl font-bold tracking-tight gradient-pink-text">
+            Hi Love!
           </h1>
           <p className="mb-8 text-center text-sm text-zinc-400">
-            Enter the passcode to continue
+            Enter our special date to unlock
           </p>
 
           {/* PIN input */}
-          <div className="flex justify-center gap-3" onPaste={handlePaste}>
+          <div className="flex justify-center gap-2.5 sm:gap-3" onPaste={handlePaste}>
             {digits.map((digit, i) => (
-              <input
+              <motion.input
                 key={i}
                 ref={(el) => (inputRefs.current[i] = el)}
                 type="tel"
@@ -108,12 +193,13 @@ export default function EntryGate({ onNext }) {
                 value={digit}
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
-                className={`h-14 w-11 rounded-xl border bg-neutral-950 text-center text-xl font-semibold text-zinc-100 outline-none transition-all focus:ring-2 ${
+                whileFocus={{ scale: 1.05 }}
+                className={`h-16 w-12 rounded-xl border text-center text-xl font-semibold text-zinc-100 outline-none transition-all duration-200 ${
                   error
-                    ? "border-red-500/50 focus:ring-red-500/40"
+                    ? "border-red-500/50 bg-red-500/5 focus:ring-2 focus:ring-red-500/40"
                     : digit
-                    ? "border-rose-500/50 focus:ring-rose-500/40"
-                    : "border-zinc-700/50 focus:border-rose-500/50 focus:ring-rose-500/40"
+                    ? "border-rose-500/50 bg-rose-500/5 focus:ring-2 focus:ring-rose-500/40"
+                    : "border-zinc-700/50 bg-neutral-950 focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/40"
                 }`}
               />
             ))}
@@ -129,20 +215,25 @@ export default function EntryGate({ onNext }) {
             </motion.p>
           )}
 
-          {success && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="mt-4 flex justify-center"
-            >
-              <Heart className="h-5 w-5 text-rose-400" fill="currentColor" />
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {success && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="mt-4 flex justify-center gap-1"
+              >
+                <Heart className="h-4 w-4 text-rose-400" fill="currentColor" />
+                <Heart className="h-5 w-5 text-pink-400" fill="currentColor" />
+                <Heart className="h-4 w-4 text-rose-400" fill="currentColor" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         {/* Hint */}
         <p className="mt-6 text-center text-xs text-zinc-600">
-          Hint: her birthday
+          Hint: <span className="text-zinc-500">&#x1F497;</span> her birthday
         </p>
       </motion.div>
     </div>

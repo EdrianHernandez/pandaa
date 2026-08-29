@@ -116,7 +116,7 @@ export default function EntryGate({ onNext }) {
   }, [digits, success, onNext]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center">
       {/* Soft pink radial glow background */}
       <div
         className="pointer-events-none absolute inset-0"

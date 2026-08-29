@@ -49,6 +49,7 @@ export default function App() {
             animate="animate"
             exit="exit"
             transition={stepTransition}
+            className="min-h-screen"
           >
             <EntryGate onNext={goNext} />
           </motion.div>

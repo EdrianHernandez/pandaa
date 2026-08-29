@@ -2,42 +2,42 @@
 import { ArrowRight } from "lucide-react";
 
 const memories = [
-  { id: 1, title: "baby doc", image: "/gallery/baby doc.jpg" },
-  { id: 2, title: "baby ko", image: "/gallery/baby ko.jpg" },
-  { id: 3, title: "iyaken", image: "/gallery/iyaken.jpeg" },
-  { id: 4, title: "bebetime", image: "/gallery/bebetime.jpg" },
-  { id: 5, title: "biggs diner", image: "/gallery/biggs diner.jpg" },
-  { id: 6, title: "crushh", image: "/gallery/crushh.jpg" },
-  { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.jpg" },
-  { id: 8, title: "date", image: "/gallery/date.jpg" },
-  { id: 9, title: "double date", image: "/gallery/double date.jpg" },
-  { id: 10, title: "first date", image: "/gallery/first date.jpg" },
-  { id: 11, title: "outlets", image: "/gallery/outlets.jpg" },
-  { id: 12, title: "first tusok", image: "/gallery/first tusok.webp" },
-  { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg" },
-  { id: 14, title: "hehe", image: "/gallery/hehe.jpg" },
-  { id: 15, title: "minee", image: "/gallery/minee.jpg" },
-  { id: 16, title: "more dates", image: "/gallery/more dates.jpg" },
-  { id: 17, title: "museum date", image: "/gallery/museum date.jpg" },
-  { id: 18, title: "my girl", image: "/gallery/my girl.jpg" },
-  { id: 19, title: "poor panda", image: "/gallery/poor panda.jpeg" },
-  { id: 20, title: "rawr", image: "/gallery/rawr.jpg" },
-  { id: 21, title: "random", image: "/gallery/random.webp" },
-  { id: 22, title: "SB", image: "/gallery/SB.jpg" },
-  { id: 23, title: "spidey day", image: "/gallery/spidey day.jpg" },
-  { id: 24, title: "night date", image: "/gallery/night date.jpg" },
+  { id: 1, title: "baby doc", image: "/gallery/baby doc.jpg", orientation: "horizontal" },
+  { id: 2, title: "baby ko", image: "/gallery/baby ko.jpg", orientation: "square" },
+  { id: 3, title: "iyaken", image: "/gallery/iyaken.jpeg", orientation: "vertical" },
+  { id: 4, title: "bebetime", image: "/gallery/bebetime.jpg", orientation: "horizontal" },
+  { id: 5, title: "biggs diner", image: "/gallery/biggs diner.jpg", orientation: "vertical" },
+  { id: 6, title: "crushh", image: "/gallery/crushh.jpg", orientation: "vertical" },
+  { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.jpg", orientation: "horizontal" },
+  { id: 8, title: "date", image: "/gallery/date.jpg", orientation: "horizontal" },
+  { id: 9, title: "double date", image: "/gallery/double date.jpg", orientation: "horizontal" },
+  { id: 10, title: "first date", image: "/gallery/first date.jpg", orientation: "vertical" },
+  { id: 11, title: "outlets", image: "/gallery/outlets.jpg", orientation: "horizontal" },
+  { id: 12, title: "first tusok", image: "/gallery/first tusok.webp", orientation: "vertical" },
+  { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg", orientation: "vertical" },
+  { id: 14, title: "hehe", image: "/gallery/hehe.jpg", orientation: "vertical" },
+  { id: 15, title: "minee", image: "/gallery/minee.jpg", orientation: "vertical" },
+  { id: 16, title: "more dates", image: "/gallery/more dates.jpg", orientation: "horizontal" },
+  { id: 17, title: "museum date", image: "/gallery/museum date.jpg", orientation: "vertical" },
+  { id: 18, title: "my girl", image: "/gallery/my girl.jpg", orientation: "vertical" },
+  { id: 19, title: "poor panda", image: "/gallery/poor panda.jpeg", orientation: "horizontal" },
+  { id: 20, title: "rawr", image: "/gallery/rawr.jpg", orientation: "vertical" },
+  { id: 21, title: "random", image: "/gallery/random.webp", orientation: "vertical" },
+  { id: 22, title: "SB", image: "/gallery/SB.jpg", orientation: "vertical" },
+  { id: 23, title: "spidey day", image: "/gallery/spidey day.jpg", orientation: "vertical" },
+  { id: 24, title: "night date", image: "/gallery/night date.jpg", orientation: "vertical" },
 ];
 
-const CARD_SIZES = [
-  { width: 160, height: 220, imageH: 175 },
-  { width: 180, height: 160, imageH: 115 },
-  { width: 150, height: 170, imageH: 120 },
-];
+const CARD_SIZES = {
+  vertical:   { width: 150, height: 210, imageH: 165 },
+  horizontal: { width: 200, height: 150, imageH: 110 },
+  square:     { width: 160, height: 160, imageH: 115 },
+};
 
 const ROTATIONS = [-3, -2, -1, 0, 1, 2, 3];
 
-function getSize(id) {
-  return CARD_SIZES[id % CARD_SIZES.length];
+function getSize(memory) {
+  return CARD_SIZES[memory.orientation];
 }
 
 function getRotation(id) {
@@ -59,7 +59,7 @@ function MarqueeRow({ items, direction = "left", duration = 50 }) {
         <div className="pointer-events-none absolute left-0 right-0 top-2 h-px bg-zinc-500/40" />
 
         {duplicated.map((memory, i) => {
-          const size = getSize(memory.id + i);
+          const size = getSize(memory);
           const rotation = getRotation(memory.id + i);
           const swingDuration = 3 + ((memory.id + i) % 3);
           const swingDelay = ((memory.id * 7 + i * 3) % 5) * 0.4;

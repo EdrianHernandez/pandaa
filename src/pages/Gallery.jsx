@@ -4,15 +4,15 @@ import { ArrowRight } from "lucide-react";
 const memories = [
   { id: 1, title: "baby doc", image: "/gallery/baby doc.jpg" },
   { id: 2, title: "baby ko", image: "/gallery/baby ko.jpg" },
-  { id: 3, title: "bagong iyak yan sya", image: "/gallery/bagong iyak yan sya.jpeg" },
-  { id: 4, title: "bebetime", image: "/gallery/bebetime.webp" },
+  { id: 3, title: "iyaken", image: "/gallery/iyaken.jpeg" },
+  { id: 4, title: "bebetime", image: "/gallery/bebetime.jpg" },
   { id: 5, title: "biggs diner", image: "/gallery/biggs diner.jpg" },
   { id: 6, title: "crushh", image: "/gallery/crushh.jpg" },
-  { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.webp" },
+  { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.jpg" },
   { id: 8, title: "date", image: "/gallery/date.jpg" },
-  { id: 9, title: "double date", image: "/gallery/double date.webp" },
+  { id: 9, title: "double date", image: "/gallery/double date.jpg" },
   { id: 10, title: "first date", image: "/gallery/first date.jpg" },
-  { id: 11, title: "first outlets", image: "/gallery/first outlets.webp" },
+  { id: 11, title: "outlets", image: "/gallery/outlets.jpg" },
   { id: 12, title: "first tusok", image: "/gallery/first tusok.webp" },
   { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg" },
   { id: 14, title: "hehe", image: "/gallery/hehe.jpg" },
@@ -25,7 +25,7 @@ const memories = [
   { id: 21, title: "random", image: "/gallery/random.webp" },
   { id: 22, title: "SB", image: "/gallery/SB.jpg" },
   { id: 23, title: "spidey day", image: "/gallery/spidey day.jpg" },
-  { id: 24, title: "unexpected late night date", image: "/gallery/unexpected late night date.jpg" },
+  { id: 24, title: "night date", image: "/gallery/night date.jpg" },
 ];
 
 const CARD_SIZES = [

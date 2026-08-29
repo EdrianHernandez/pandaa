@@ -14,7 +14,7 @@ const memories = [
   { id: 10, title: "first date", image: "/gallery/first date.jpg", orientation: "vertical" },
   { id: 11, title: "outlets", image: "/gallery/outlets.jpg", orientation: "horizontal" },
   { id: 12, title: "first tusok", image: "/gallery/first tusok.webp", orientation: "vertical" },
-  { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg", orientation: "vertical" },
+  { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg", orientation: "square" },
   { id: 14, title: "hehe", image: "/gallery/hehe.jpg", orientation: "vertical" },
   { id: 15, title: "minee", image: "/gallery/minee.jpg", orientation: "vertical" },
   { id: 16, title: "more dates", image: "/gallery/more dates.jpg", orientation: "horizontal" },
@@ -29,8 +29,8 @@ const memories = [
 ];
 
 const CARD_SIZES = {
-  vertical:   { width: 150, height: 210, imageH: 165 },
-  horizontal: { width: 200, height: 150, imageH: 110 },
+  vertical:   { width: 140, height: 220, imageH: 175 },
+  horizontal: { width: 210, height: 160, imageH: 120 },
   square:     { width: 160, height: 160, imageH: 115 },
 };
 

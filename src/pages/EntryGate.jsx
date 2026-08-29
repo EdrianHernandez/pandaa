@@ -1,25 +1,62 @@
-﻿import { useState } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Lock, ArrowRight, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
-const PASSCODE = "lovepanda";
+const PASSCODE = "100904";
+const LENGTH = 6;
 
 export default function EntryGate({ onNext }) {
-  const [input, setInput] = useState("");
+  const [digits, setDigits] = useState(Array(LENGTH).fill(""));
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const inputRefs = useRef([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input.trim().toLowerCase() === PASSCODE) {
-      setSuccess(true);
-      setTimeout(() => onNext(), 600);
-    } else {
-      setError(true);
-      setTimeout(() => setError(false), 800);
-      setInput("");
+  const handleChange = (index, value) => {
+    if (!/^\d$/.test(value) && value !== "") return;
+    const newDigits = [...digits];
+    newDigits[index] = value;
+    setDigits(newDigits);
+    if (value && index < LENGTH - 1) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace" && !digits[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, LENGTH);
+    if (!pasted) return;
+    const newDigits = [...digits];
+    for (let i = 0; i < pasted.length; i++) {
+      newDigits[i] = pasted[i];
+    }
+    setDigits(newDigits);
+    const nextEmpty = newDigits.findIndex((d) => !d);
+    const focusIndex = nextEmpty === -1 ? LENGTH - 1 : nextEmpty;
+    inputRefs.current[focusIndex]?.focus();
+  };
+
+  useEffect(() => {
+    if (digits.every((d) => d !== "") && !success) {
+      const code = digits.join("");
+      if (code === PASSCODE) {
+        setSuccess(true);
+        setTimeout(() => onNext(), 600);
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+          setDigits(Array(LENGTH).fill(""));
+          inputRefs.current[0]?.focus();
+        }, 800);
+      }
+    }
+  }, [digits, success, onNext]);
 
   return (
     <div className="flex min-h-screen items-center justify-center overflow-hidden">
@@ -50,13 +87,6 @@ export default function EntryGate({ onNext }) {
           }
           transition={{ duration: 0.5 }}
         >
-          {/* Icon */}
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-500/10">
-              <Lock className="h-6 w-6 text-rose-400" />
-            </div>
-          </div>
-
           {/* Header */}
           <h1 className="mb-2 text-center text-xl font-semibold tracking-tight text-zinc-100">
             Welcome back
@@ -65,63 +95,54 @@ export default function EntryGate({ onNext }) {
             Enter the passcode to continue
           </p>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          {/* PIN input */}
+          <div className="flex justify-center gap-3" onPaste={handlePaste}>
+            {digits.map((digit, i) => (
               <input
-                type="password"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Passcode"
-                autoFocus
-                className={`w-full rounded-xl border bg-neutral-950 px-4 py-3 text-sm text-zinc-100 outline-none transition-all placeholder:text-zinc-600 focus:ring-2 focus:ring-rose-500/40 ${
+                key={i}
+                ref={(el) => (inputRefs.current[i] = el)}
+                type="tel"
+                inputMode="numeric"
+                maxLength={1}
+                autoFocus={i === 0}
+                value={digit}
+                onChange={(e) => handleChange(i, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(i, e)}
+                className={`h-14 w-11 rounded-xl border bg-neutral-950 text-center text-xl font-semibold text-zinc-100 outline-none transition-all focus:ring-2 ${
                   error
-                    ? "border-red-500/50"
-                    : "border-zinc-700/50 focus:border-rose-500/50"
+                    ? "border-red-500/50 focus:ring-red-500/40"
+                    : digit
+                    ? "border-rose-500/50 focus:ring-rose-500/40"
+                    : "border-zinc-700/50 focus:border-rose-500/50 focus:ring-rose-500/40"
                 }`}
               />
-              {error && (
-                <motion.p
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 text-xs text-red-400"
-                >
-                  Incorrect passcode. Try again.
-                </motion.p>
-              )}
-            </div>
+            ))}
+          </div>
 
-            <motion.button
-              type="submit"
-              disabled={!input.trim()}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all ${
-                success
-                  ? "bg-emerald-500/20 text-emerald-400"
-                  : "gradient-pink text-white shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 disabled:opacity-40"
-              }`}
+          {error && (
+            <motion.p
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 text-center text-xs text-red-400"
             >
-              {success ? (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                >
-                  <Heart className="h-4 w-4" fill="currentColor" />
-                </motion.div>
-              ) : (
-                <>
-                  Enter
-                  <ArrowRight className="h-4 w-4" />
-                </>
-              )}
-            </motion.button>
-          </form>
+              Incorrect passcode. Try again.
+            </motion.p>
+          )}
+
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-4 flex justify-center"
+            >
+              <Heart className="h-5 w-5 text-rose-400" fill="currentColor" />
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Hint */}
         <p className="mt-6 text-center text-xs text-zinc-600">
-          Hint: what&apos;s my name?
+          Hint: her birthday
         </p>
       </motion.div>
     </div>

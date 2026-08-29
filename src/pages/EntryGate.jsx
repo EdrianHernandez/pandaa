@@ -145,6 +145,7 @@ export default function EntryGate({ onNext }) {
         <motion.div
           className="relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-zinc-900/50 p-8 shadow-2xl backdrop-blur-xl"
           style={{
+            width: "min(320px, 90vw)",
             boxShadow: "0 0 40px rgba(236,72,153,0.08), 0 25px 50px rgba(0,0,0,0.4)",
           }}
           animate={
@@ -177,7 +178,7 @@ export default function EntryGate({ onNext }) {
             Hi Love!
           </h1>
           <p className="mb-8 text-center text-sm text-zinc-400">
-            Enter our special date to unlock
+            Enter your birthdate to unlock
           </p>
 
           {/* PIN input */}
@@ -231,10 +232,6 @@ export default function EntryGate({ onNext }) {
           </AnimatePresence>
         </motion.div>
 
-        {/* Hint */}
-        <p className="mt-6 text-center text-xs text-zinc-600">
-          Hint: <span className="text-zinc-500">&#x1F497;</span> her birthday
-        </p>
       </motion.div>
     </div>
   );

@@ -138,7 +138,7 @@ export default function EntryGate({ onNext }) {
 
       <motion.div
         className="relative z-10 px-6"
-        style={{ width: "min(340px, 90vw)" }}
+        style={{ width: "min(420px, 90vw)" }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}

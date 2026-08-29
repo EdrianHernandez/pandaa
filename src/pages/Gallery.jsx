@@ -11,7 +11,7 @@ const memories = [
   { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.jpg", orientation: "horizontal" },
   { id: 8, title: "date", image: "/gallery/date.jpg", orientation: "horizontal" },
   { id: 9, title: "double date", image: "/gallery/double date.jpg", orientation: "horizontal" },
-  { id: 10, title: "first date", image: "/gallery/first date.jpg", orientation: "vertical" },
+  { id: 10, title: "first date", image: "/gallery/first date.jpg", orientation: "horizontal" },
   { id: 11, title: "outlets", image: "/gallery/outlets.jpg", orientation: "horizontal" },
   { id: 12, title: "first tusok", image: "/gallery/first tusok.webp", orientation: "vertical" },
   { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg", orientation: "square" },

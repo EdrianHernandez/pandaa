@@ -137,7 +137,8 @@ export default function EntryGate({ onNext }) {
       </div>
 
       <motion.div
-        className="relative z-10 w-full max-w-sm px-6"
+        className="relative z-10 px-6"
+        style={{ width: "min(340px, 90vw)" }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -145,7 +146,6 @@ export default function EntryGate({ onNext }) {
         <motion.div
           className="relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-zinc-900/50 p-8 shadow-2xl backdrop-blur-xl"
           style={{
-            width: "min(320px, 90vw)",
             boxShadow: "0 0 40px rgba(236,72,153,0.08), 0 25px 50px rgba(0,0,0,0.4)",
           }}
           animate={
@@ -182,7 +182,7 @@ export default function EntryGate({ onNext }) {
           </p>
 
           {/* PIN input */}
-          <div className="flex justify-center gap-2.5 sm:gap-3" onPaste={handlePaste}>
+          <div className="flex justify-center gap-2" onPaste={handlePaste}>
             {digits.map((digit, i) => (
               <motion.input
                 key={i}
@@ -195,7 +195,7 @@ export default function EntryGate({ onNext }) {
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
                 whileFocus={{ scale: 1.05 }}
-                className={`h-16 w-12 rounded-xl border text-center text-xl font-semibold text-zinc-100 outline-none transition-all duration-200 ${
+                className={`h-16 w-11 rounded-xl border text-center text-xl font-semibold text-zinc-100 outline-none transition-all duration-200 ${
                   error
                     ? "border-red-500/50 bg-red-500/5 focus:ring-2 focus:ring-red-500/40"
                     : digit

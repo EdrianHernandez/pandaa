@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FloatingParticles from "./components/FloatingParticles";
 import EntryGate from "./pages/EntryGate";
@@ -22,12 +22,20 @@ const stepTransition = {
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(0);
+  const audioRef = useRef(null);
 
   const goNext = () => setCurrentStep((s) => s + 1);
   const progress = (currentStep / TOTAL_STEPS) * 100;
 
+  useEffect(() => {
+    if (currentStep >= 2 && audioRef.current) {
+      audioRef.current.play().catch(() => {});
+    }
+  }, [currentStep]);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-neutral-950 text-neutral-100">
+      <audio ref={audioRef} src="/bg.mp3" loop preload="auto" />
       <FloatingParticles />
 
       {/* Progress bar */}

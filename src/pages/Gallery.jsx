@@ -2,46 +2,30 @@
 import { ArrowRight } from "lucide-react";
 
 const memories = [
-  {
-    id: 1,
-    title: "Golden Hour",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=Golden+Hour",
-  },
-  {
-    id: 2,
-    title: "Night Walk",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=Night+Walk",
-  },
-  {
-    id: 3,
-    title: "Morning Coffee",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=Morning+Coffee",
-  },
-  {
-    id: 4,
-    title: "Mountain Top",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=Mountain+Top",
-  },
-  {
-    id: 5,
-    title: "By The Sea",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=By+The+Sea",
-  },
-  {
-    id: 6,
-    title: "City Lights",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=City+Lights",
-  },
-  {
-    id: 7,
-    title: "First Sunrise",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=First+Sunrise",
-  },
-  {
-    id: 8,
-    title: "Quiet Afternoon",
-    image: "https://placehold.co/600x800/18181b/ec4899?text=Quiet+Afternoon",
-  },
+  { id: 1, title: "baby doc", image: "/gallery/baby doc.jpg" },
+  { id: 2, title: "baby ko", image: "/gallery/baby ko.jpg" },
+  { id: 3, title: "bagong iyak yan sya", image: "/gallery/bagong iyak yan sya.jpeg" },
+  { id: 4, title: "bebetime", image: "/gallery/bebetime.webp" },
+  { id: 5, title: "biggs diner", image: "/gallery/biggs diner.jpg" },
+  { id: 6, title: "crushh", image: "/gallery/crushh.jpg" },
+  { id: 7, title: "cutiee wife", image: "/gallery/cutiee wife.webp" },
+  { id: 8, title: "date", image: "/gallery/date.jpg" },
+  { id: 9, title: "double date", image: "/gallery/double date.webp" },
+  { id: 10, title: "first date", image: "/gallery/first date.jpg" },
+  { id: 11, title: "first outlets", image: "/gallery/first outlets.webp" },
+  { id: 12, title: "first tusok", image: "/gallery/first tusok.webp" },
+  { id: 13, title: "gandaa", image: "/gallery/gandaa.jpg" },
+  { id: 14, title: "hehe", image: "/gallery/hehe.jpg" },
+  { id: 15, title: "minee", image: "/gallery/minee.jpg" },
+  { id: 16, title: "more dates", image: "/gallery/more dates.jpg" },
+  { id: 17, title: "museum date", image: "/gallery/museum date.jpg" },
+  { id: 18, title: "my girl", image: "/gallery/my girl.jpg" },
+  { id: 19, title: "poor panda", image: "/gallery/poor panda.jpeg" },
+  { id: 20, title: "rawr", image: "/gallery/rawr.jpg" },
+  { id: 21, title: "random", image: "/gallery/random.webp" },
+  { id: 22, title: "SB", image: "/gallery/SB.jpg" },
+  { id: 23, title: "spidey day", image: "/gallery/spidey day.jpg" },
+  { id: 24, title: "unexpected late night date", image: "/gallery/unexpected late night date.jpg" },
 ];
 
 const CARD_SIZES = [
